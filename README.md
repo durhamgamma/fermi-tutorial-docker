@@ -10,8 +10,9 @@ Once you have created the fermi-tutorial tarball, clone this repo into a new wor
 
 Navigate into your working directory and copy the fermi-tutorial tarball into it e.g.
 
-```cd fermi-tutorial-docker
-cp ../fermi-tutorial/fermi-tutorial.tar.gz .```
+```cd fermi-tutorial-docker```
+
+```cp ../fermi-tutorial/fermi-tutorial.tar.gz .```
 
 Once this is done you can build the docker container as follows.
 
