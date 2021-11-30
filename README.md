@@ -2,7 +2,7 @@
 Docker package for fermi tutorial
 
 ## Tutorial files
-Before you can build this docker container you need to make sure you have the fermi-tutorial tarball. You can generate the tarball by following the instructions in the README of the fermi-tutorial repo.
+Before you can build this docker container you need to make sure you have the fermi-tutorial tarball. You can generate the tarball by following the instructions in the README of the [fermi-tutorial](https://github.com/durhamgamma/fermi-tutorial) repo.
 
 Once you have created the fermi-tutorial tarball, clone this repo into a new working directory that you will use to create the docker container e.g.
 
