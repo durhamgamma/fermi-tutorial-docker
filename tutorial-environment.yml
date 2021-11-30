@@ -1,0 +1,22 @@
+name: fermipy-v1-0-1
+channels:
+  - fermi
+  - conda-forge
+  - sherpa
+dependencies:
+  - python
+  - pyyaml
+  - numpy[version='>=1.16']
+  - scipy
+  - astropy[version='<4']
+  - matplotlib[version='3.3.2']
+  - pandas
+  - healpy
+  - astropy-healpix
+  - gammapy[version='>=0.18']
+  - fermitools
+  - clhep[version='2.4.4.1']
+  - ipython
+  - jupyter
+  - jupyterlab
+  - libpng
