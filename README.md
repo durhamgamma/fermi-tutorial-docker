@@ -29,4 +29,4 @@ To run the newly created docker image starting in a Jupyter notebook, simply ope
 
 ## Notes:
 
-Tutorial 1 in the [fermi-tutorial](https://github.com/durhamgamma/fermi-tutorial) repo requires you to run both the Jupyter notebook and complete exercises on the command line. You can do this simply by opening 2 new terminal windows and launching docker in one of them to start in a notebook and launching docker in the other to start from the shell.
+Tutorial 2 in the [fermi-tutorial](https://github.com/durhamgamma/fermi-tutorial) repo requires you to run both the Jupyter notebook and complete exercises on the command line. You can do this simply by opening 2 new terminal windows and launching docker in one of them to start in a notebook and launching docker in the other to start from the shell.
