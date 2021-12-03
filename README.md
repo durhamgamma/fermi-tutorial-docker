@@ -17,11 +17,13 @@ In order to build the docker container you need to have [Docker](https://www.doc
 
 ## Running the docker container for the tutorials in the [fermi-tutorial](https://github.com/durhamgamma/fermi-tutorial) repo
 
-To run the newly created "fermi-tutorial:v1-0-0" docker container starting in the shell. Simply open a new terminal window and run (Your system may require you to include a -c flag before the image name):
+To run the newly created "fermi-tutorial:v1-0-0" docker image starting in the shell. Simply open a new terminal window and run:
 
 ```docker run -it --rm -v $PWD:/workdir -w /workdir --entrypoint /bin/bash fermi-tutorial:v1-0-0```
 
-To run the newly created docker container starting in a Jupyter notebook, simply open a new terminal window and run:
+Note: Your system may require you to include a -c flag before the image name
+
+To run the newly created docker image starting in a Jupyter notebook, simply open a new terminal window and run:
 
 ```docker run -it --rm -p 8888:8888 -v $PWD:/workdir -w /workdir fermi-tutorial:v1-0-0```
 
