@@ -13,7 +13,7 @@ Navigate into the newly created "fermi-tutorial-docker" directory and build the 
 
 ## Dependencies
 
-In order to build the docker container you need to have Docker installed.
+In order to build the docker container you need to have [Docker](https://www.docker.com) installed.
 
 ## Running the docker container for the tutorials in the [fermi-tutorial](https://github.com/durhamgamma/fermi-tutorial) repo
 
