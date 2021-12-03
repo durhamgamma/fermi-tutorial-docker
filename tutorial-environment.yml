@@ -20,3 +20,4 @@ dependencies:
   - jupyter
   - jupyterlab
   - libpng
+  - fermipy[version='1.0.1']
