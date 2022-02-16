@@ -181,7 +181,7 @@ def _process_lc_bin(itime, name, config, basedir, workdir, diff_sources, const_s
     gta.write_xml('fit_model_final.xml')
     srcmodel = copy.deepcopy(gta.get_src_model(name))
     numfree = gta.get_free_param_vector().count(True)
-
+    
     const_srcmodel = gta.get_src_model(name).copy()
     fixed_fit_results = fit_results.copy()
     fixed_srcmodel = gta.get_src_model(name).copy()
@@ -211,7 +211,7 @@ def _process_lc_bin(itime, name, config, basedir, workdir, diff_sources, const_s
             continue
         fixed_srcmodel = gta.get_src_model(name)
         break
-
+    
     # special lc output
     o = {'flux_const': const_srcmodel['flux'],
          'loglike_const': const_fit_results['loglike'],
@@ -256,22 +256,18 @@ class LightCurve(object):
         complete the basic analysis steps for each bin and perform a
         likelihood fit for each bin. Extracted values (along with
         errors) are Integral Flux, spectral model, Spectral index, TS
-        value, pred. # of photons. Note: successful calculation of
-        TS:subscript:`var` requires at least one free background
+        value, pred. # of photons. Note: successful calculation of 
+        TS:subscript:`var` requires at least one free background 
         parameter and a previously optimized ROI model.
-
         Parameters
         ---------
         name: str
             source name
-
         {options}
-
         Returns
         ---------
         LightCurve : dict
            Dictionary containing output of the LC analysis
-
         """
 
         name = self.roi.get_source_by_name(name).name
@@ -291,11 +287,10 @@ class LightCurve(object):
                                          prefix=[config['prefix'],
                                                  name.lower().replace(' ', '_')])
 
-        if o is not None:
-            o['file'] = None
-            if config['write_fits']:
-                o['file'] = os.path.basename(filename) + '.fits'
-                self._make_lc_fits(o, filename + '.fits', **config)
+        o['file'] = None
+        if config['write_fits']:
+            o['file'] = os.path.basename(filename) + '.fits'
+            self._make_lc_fits(o, filename + '.fits', **config)
 
         if config['write_npy']:
             np.save(filename + '.npy', o)
@@ -431,7 +426,7 @@ class LightCurve(object):
                        basedir=basedir, workdir=self.workdir, diff_sources=diff_sources,
                        const_spectrum=const_spectrum, roi=self.roi, lck_params=lck_params, **kwargs)
         itimes = enumerate(zip(times[:-1], times[1:]))
-        if kwargs.get('multithread', True):
+        if kwargs.get('multithread', False):
             p = Pool(processes=kwargs.get('nthread', None))
             mapo = p.imap(wrap, itimes)
             p.close()
@@ -448,19 +443,19 @@ class LightCurve(object):
         flux_const = None
         for i, time in enumerate(zip(times[:-1], times[1:])):
 
-            try:
-                next_fit = next(mapo)
-            except StopIteration:
-                return
-
+            next_fit = next(mapo)
+            if not 'fit_success' in next_fit:
+                self.logger.error(
+                  'fit_success not found in bin %d in range %i %i.' % (i, time[0], time[1]))
+                continue
             if not next_fit['fit_success']:
                 self.logger.error(
                     'Fit failed in bin %d in range %i %i.' % (i, time[0], time[1]))
                 continue
 
             if flux_const is None:
-                flux_const = next_fit['flux_const']
-
+                flux_const = next_fit['flux_const']                
+            
             for k in o.keys():
 
                 if k == 'config':
