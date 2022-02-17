@@ -88,7 +88,7 @@ COPY gll_psc_v27.fit /miniconda3/envs/$condaEnvName/lib/python3.7/site-packages/
 #The updated lightcurve.py file now checks for a fit where failure to check can cause the "fit_success" key error
 WORKDIR /miniconda3/envs/$condaEnvName/lib/python3.7/site-packages/fermipy
 RUN rm -f lightcurve.py
-COPY catalog.py ltcube.py lightcurve.py .
+COPY catalog.py ltcube.py lightcurve.py ./
 
 
 WORKDIR /workdir
@@ -107,7 +107,7 @@ RUN env | grep -w "PFILES" > env-logon.list
 
 
 WORKDIR /temp
-COPY ./entrypoint.sh ./start-env.py .
+COPY ./entrypoint.sh ./start-env.py ./
 RUN chmod 755 entrypoint.sh
 
 WORKDIR /workdir

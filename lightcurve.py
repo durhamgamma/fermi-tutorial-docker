@@ -452,7 +452,11 @@ class LightCurve(object):
                 next_fit = next(mapo)
             except StopIteration:
                 return
-
+	     
+            if not 'fit_success' in next_fit:
+                self.logger.error(
+                  'fit_success not found in bin %d in range %i %i.' % (i, time[0], time[1]))
+                continue
             if not next_fit['fit_success']:
                 self.logger.error(
                     'Fit failed in bin %d in range %i %i.' % (i, time[0], time[1]))
