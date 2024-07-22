@@ -5,11 +5,11 @@
 # file size in your docker preferences otherwise you'll get lots of build failures
 
 FROM ubuntu:18.04
-MAINTAINER Cameron Rulten <cameron.b.rulten@durham.ac.uk>
+LABEL org.opencontainers.image.authors="Cameron Rulten <cameron.b.rulten@durham.ac.uk>"
 
 
 ARG condaEnvFile
-ARG condaEnvName "fermipy-v1-0-1"
+ARG condaEnvName="fermipy-v1-0-1"
 
 # System packages
 RUN apt-get update && apt-get install -y curl \
@@ -119,7 +119,7 @@ SHELL ["/bin/bash", "-c"]
 RUN echo "source activate $condaEnvName" >> ~/.bashrc && \
     source ~/.bashrc
 
-ENV PATH /miniconda3/envs/fermipy-v1-0-1/bin:$PATH
+ENV PATH=/miniconda3/envs/fermipy-v1-0-1/bin:$PATH
 
 # ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "fermipy-v1-0-1", "jupyter-lab", "--notebook-dir=/workdir", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
 ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "fermipy-v1-0-1", "jupyter", "notebook", "--notebook-dir=/workdir", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
