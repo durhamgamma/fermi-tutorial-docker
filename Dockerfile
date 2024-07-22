@@ -17,16 +17,21 @@ RUN apt-get update && apt-get install -y curl \
 && rm -rf /var/lib/apt/lists/*
 
 # Install miniconda to /miniconda
-RUN curl -LO http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-RUN bash Miniconda3-latest-Linux-x86_64.sh -p /miniconda3 -b
-RUN rm Miniconda3-latest-Linux-x86_64.sh
-ENV PATH=/miniconda3/bin:${PATH}
+#RUN curl -LO http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+#RUN bash Miniconda3-latest-Linux-x86_64.sh -p /miniconda3 -b
+#RUN rm Miniconda3-latest-Linux-x86_64.sh
+#ENV PATH=/miniconda3/bin:${PATH}
+RUN curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh"
+RUN bash Miniforge3-Linux-x86_64.sh
+RUN rm Miniforge3-Linux-x86_64.sh
+ENV PATH=/miniforge3/bin:${PATH}
 RUN conda update -y conda
 
 #Append conda-forge channel
-RUN conda config --append channels conda-forge
+#RUN conda config --append channels conda-forge
 
-RUN conda install --yes -c conda-forge mamba gosu tini ipykernel
+#RUN conda install --yes -c conda-forge mamba gosu tini ipykernel
+RUN mamba install --yes -c conda-forge gosu tini ipykernel
 
 # Python packages from conda
 # RUN conda install -y \
@@ -45,7 +50,7 @@ WORKDIR /temp
 COPY $condaEnvFile .
 #Create conda fermi environment
 #RUN conda env create -f tutorial-environment.yml
-RUN conda env create -f $condaEnvFile
+RUN conda env create -f $condaEnvFile python=3.10
 
 
 SHELL ["conda", "run", "-n", "fermipy-v1-0-1", "/bin/bash", "-c"]
@@ -59,17 +64,17 @@ WORKDIR /workdir
 #&& mkdir /home/fermi-external/diffuseModels/
 
 #ENV FERMI_DIFFUSE_DIR=/home/externals/diffuseModels/v5r0
-ENV FERMI_DIFFUSE_DIR=/miniconda3/envs/$condaEnvName/share/fermitools/refdata/fermi/galdiffuse
+ENV FERMI_DIFFUSE_DIR=/miniforge3/envs/$condaEnvName/share/fermitools/refdata/fermi/galdiffuse
 #ENV SLAC_ST_BUILD=true
 #ENV INST_DIR=/miniconda/share/fermitools
-ENV FERMI_DIR=/miniconda3/envs/$condaEnvName/share/fermitools/
+ENV FERMI_DIR=/miniforge3/envs/$condaEnvName/share/fermitools/
 #ENV GLAST_EXT=/home/externals
 ENV MATPLOTLIBRC=/home/matplotlib
 #Set environmnet variables which don't appear to get set
-ENV CALDB=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb
-ENV CALDBROOT=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb
-ENV CALDBALIAS=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb/software/tools/alias_config.fits
-ENV CALDBCONFIG=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb/software/tools/caldb.config
+ENV CALDB=/miniforge3/envs/$condaEnvName/share/fermitools/data/caldb
+ENV CALDBROOT=/miniforge3/envs/$condaEnvName/share/fermitools/data/caldb
+ENV CALDBALIAS=/miniforge3/envs/$condaEnvName/share/fermitools/data/caldb/software/tools/alias_config.fits
+ENV CALDBCONFIG=/miniforge3/envs/$condaEnvName/share/fermitools/data/caldb/software/tools/caldb.config
 
 
 WORKDIR /home/matplotlib
@@ -78,21 +83,21 @@ RUN echo "backend      : Agg" >> /home/matplotlib/matplotlibrc
 
 #Copy the locally updated 4FGL-DR2 catalog into the fermipy catalog directory
 #This local copy of the catalog changes the incorrectly named PLSuperExpCutoff with PLSuperExpCutoff2
-WORKDIR /miniconda3envs/$condaEnvName/lib/python3.7/site-packages/fermipy/data/catalogs
-COPY gll_psc_v27.fit /miniconda3/envs/$condaEnvName/lib/python3.7/site-packages/fermipy/data/catalogs
+WORKDIR /miniforge3/envs/$condaEnvName/lib/python3.10/site-packages/fermipy/data/catalogs
+COPY gll_psc_v27.fit /miniforge3/envs/$condaEnvName/lib/python3.10/site-packages/fermipy/data/catalogs
 
 #Copy the locally updated fermipy files into the container fermipy installation
 #The updated catalog file reflects the use of the gll_psc_v27.fit catalog files
 #when using the "4FGL" keyword in your analysis config.pyaml file.
 #The updated ltcube.py file reflects the TSTART and TSTOP fits file changes causing key error
 #The updated lightcurve.py file now checks for a fit where failure to check can cause the "fit_success" key error
-WORKDIR /miniconda3/envs/$condaEnvName/lib/python3.7/site-packages/fermipy
+WORKDIR /miniforge3/envs/$condaEnvName/lib/python3.10/site-packages/fermipy
 RUN rm -f lightcurve.py
 COPY catalog.py ltcube.py lightcurve.py ./
 
 
 WORKDIR /workdir
-ENV FERMIPY=/miniconda3/envs/$condaEnvName/lib/python3.7/site-packages/fermipy/
+ENV FERMIPY=/miniforge3/envs/$condaEnvName/lib/python3.10/site-packages/fermipy/
 
 #RUN mkdir /home/pfiles
 #ENV PFILES=/home/pfiles
@@ -119,7 +124,7 @@ SHELL ["/bin/bash", "-c"]
 RUN echo "source activate $condaEnvName" >> ~/.bashrc && \
     source ~/.bashrc
 
-ENV PATH=/miniconda3/envs/fermipy-v1-0-1/bin:$PATH
+ENV PATH=/miniforge3/envs/fermipy-v1-0-1/bin:$PATH
 
 # ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "fermipy-v1-0-1", "jupyter-lab", "--notebook-dir=/workdir", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
 ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "fermipy-v1-0-1", "jupyter", "notebook", "--notebook-dir=/workdir", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
