@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y curl \
 #RUN rm Miniconda3-latest-Linux-x86_64.sh
 #ENV PATH=/miniconda3/bin:${PATH}
 RUN curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh"
-RUN bash Miniforge3-Linux-x86_64.sh
+RUN bash Miniforge3-Linux-x86_64.sh -p /miniforge3 -b
 RUN rm Miniforge3-Linux-x86_64.sh
 ENV PATH=/miniforge3/bin:${PATH}
 RUN conda update -y conda
