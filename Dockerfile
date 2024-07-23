@@ -32,7 +32,7 @@ RUN apt-get update && apt-get install -y curl \
 #         whichConda="Miniforge3-MacOSX-arm64" \
 
 COPY condaforge-setup.sh .
-RUN chmod +x /condaforge-setup.sh && condaforge-setup.sh "${TARGETPLATFORM}"
+RUN chmod +x /condaforge-setup.sh && ./condaforge-setup.sh "${TARGETPLATFORM}"
 #RUN curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh"
 #RUN bash Miniforge3-Linux-x86_64.sh -p /miniforge3 -b
 #RUN url -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
