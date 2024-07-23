@@ -1,10 +1,9 @@
 name: fermipy-v1-0-1
 channels:
-  - fermi
   - conda-forge
-  - sherpa
+  - fermi
 dependencies:
-  - python
+  - python[version='3.9']
   - pyyaml
   - numpy[version='>=1.16']
   - scipy
