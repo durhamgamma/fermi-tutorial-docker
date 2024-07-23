@@ -14,10 +14,9 @@ ARG condaEnvName="fermipy-v1-0-1"
 ARG whichConda
 ARG BUILDPLATFORM
 ARG TARGETARCH
-ARG TARGETVARIANT
 ARG TARGETOS
-
-RUN echo "Building Docker image for - Plaform: ${TARGETPLATFORM} ${BUILDPLATFORM} ${TARGETARCH} ${TARGETVARIANT} ${TARGETOS} "
+ARG platform = "${TARGETOS}-${TARGETARCH}"
+RUN echo "Building Docker image for - Plaform: ${TARGETPLATFORM} ${TARGETARCH} ${TARGETOS} ${platform} "
 
 # System packages
 RUN apt-get update && apt-get install -y curl \
