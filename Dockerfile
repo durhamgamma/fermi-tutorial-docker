@@ -11,10 +11,9 @@ ARG TARGETPLATFORM
 ARG os_name
 ARG condaEnvFile
 ARG condaEnvName="fermipy-v1-0-1"
+ARG whichConda
 
-RUN echo "Plaform: ${TARGETPLATFORM} Operating System: ${os_name}"
-
-RUN false
+RUN echo "Building Docker image for - Plaform: ${TARGETPLATFORM} Operating System: ${os_name}"
 
 # System packages
 RUN apt-get update && apt-get install -y curl \
@@ -26,8 +25,18 @@ RUN apt-get update && apt-get install -y curl \
 #RUN bash Miniconda3-latest-Linux-x86_64.sh -p /miniconda3 -b
 #RUN rm Miniconda3-latest-Linux-x86_64.sh
 #ENV PATH=/miniconda3/bin:${PATH}
-RUN curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh"
-RUN bash Miniforge3-Linux-x86_64.sh -p /miniforge3 -b
+
+# RUN if [ "${os_name}" = "Darwin"]; then \
+#         whichConda="Miniforge3-MacOSX-arm64" \
+#     else \
+#         whichConda="Miniforge3-MacOSX-arm64" \
+
+
+#RUN curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh"
+#RUN bash Miniforge3-Linux-x86_64.sh -p /miniforge3 -b
+RUN url -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+RUN bash Miniforge3-$(uname)-$(uname -m).sh -p /miniforge3 -b
+
 RUN rm Miniforge3-Linux-x86_64.sh
 ENV PATH=/miniforge3/bin:${PATH}
 RUN conda update -y conda
