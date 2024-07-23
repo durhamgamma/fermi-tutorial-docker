@@ -11,7 +11,9 @@ ARG TARGETPLATFORM
 ARG condaEnvFile
 ARG condaEnvName="fermipy-v1-0-1"
 
-RUN echo "Plaform: ${TARGETPLATFORM}"
+ARG HOST_NAME=$(uname)
+
+RUN echo "Plaform: ${TARGETPLATFORM} ${HOST_NAME}"
 
 # System packages
 RUN apt-get update && apt-get install -y curl \
