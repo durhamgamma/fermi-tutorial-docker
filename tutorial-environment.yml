@@ -5,14 +5,14 @@ channels:
 dependencies:
   - python >=3.9,<3.10
   - pyyaml
-  - numpy[version='>=1.16']
+  - numpy >=1.16
   - scipy
   - astropy
   - matplotlib
   - pandas
   - healpy
   - astropy-healpix
-  - gammapy[version='>=0.18']
+  - gammapy >=0.18
   - fermitools
   - clhep
   - ipython
