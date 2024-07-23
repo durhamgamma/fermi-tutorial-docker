@@ -8,11 +8,11 @@ FROM ubuntu:18.04
 LABEL org.opencontainers.image.authors="Cameron Rulten <cameron.b.rulten@durham.ac.uk>"
 
 ARG TARGETPLATFORM
-ARG OS_NAME
+ARG os_name
 ARG condaEnvFile
 ARG condaEnvName="fermipy-v1-0-1"
 
-RUN echo "Plaform: ${TARGETPLATFORM} Operating System: ${OS_NAME}"
+RUN echo "Plaform: ${TARGETPLATFORM} Operating System: ${os_name}"
 
 RUN false
 
