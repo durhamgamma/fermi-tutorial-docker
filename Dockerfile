@@ -4,7 +4,7 @@
 # NOTE: When building this docker image make sure you increase your RAM and Swap
 # file size in your docker preferences otherwise you'll get lots of build failures
 
-FROM ubuntu:20.04
+FROM ubuntu:20.04 AS builder
 LABEL org.opencontainers.image.authors="Cameron Rulten <cameron.b.rulten@durham.ac.uk>"
 
 ARG TARGETPLATFORM
