@@ -7,14 +7,14 @@ dependencies:
   - pyyaml
   - numpy[version='>=1.16']
   - scipy
-  - astropy[version='<4']
-  - matplotlib[version='3.3.2']
+  - astropy
+  - matplotlib
   - pandas
   - healpy
   - astropy-healpix
   - gammapy[version='>=0.18']
   - fermitools
-  - clhep[version='2.4.4.1']
+  - clhep
   - ipython
   - jupyter
   - jupyterlab
