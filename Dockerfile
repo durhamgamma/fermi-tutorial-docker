@@ -15,7 +15,7 @@ ARG whichConda
 ARG BUILDPLATFORM
 ARG TARGETARCH
 ARG TARGETOS
-ARG platform = "${TARGETOS}-${TARGETARCH}"
+ARG platform="${TARGETOS}-${TARGETARCH}"
 RUN echo "Building Docker image for - Plaform: ${TARGETPLATFORM} ${TARGETARCH} ${TARGETOS} ${platform} "
 
 # System packages
