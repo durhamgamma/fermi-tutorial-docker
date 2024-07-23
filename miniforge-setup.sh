@@ -1,6 +1,7 @@
-#!/bin/bash
+#!/bin/bash -x
 
 TARGETPLATFORM=$1
+MINIFORGE_URL=""
 
 case "${TARGETPLATFORM}" in
   "linux/amd64")
@@ -22,4 +23,5 @@ case "${TARGETPLATFORM}" in
 esac
 
 curl -L -O "${MINIFORGE_URL}"
-bash $(basename "${MINIFORGE_URL}")
+bash $(basename "${MINIFORGE_URL}") -p /miniforge3 -b
+rm $(basename "${MINIFORGE_URL}")
