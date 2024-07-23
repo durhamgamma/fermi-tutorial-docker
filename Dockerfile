@@ -7,9 +7,11 @@
 FROM ubuntu:18.04
 LABEL org.opencontainers.image.authors="Cameron Rulten <cameron.b.rulten@durham.ac.uk>"
 
-
+ARG TARGETPLATFORM
 ARG condaEnvFile
 ARG condaEnvName="fermipy-v1-0-1"
+
+RUN echo "Plaform: ${TARGETPLATFORM}"
 
 # System packages
 RUN apt-get update && apt-get install -y curl \
