@@ -8,12 +8,13 @@ FROM ubuntu:18.04
 LABEL org.opencontainers.image.authors="Cameron Rulten <cameron.b.rulten@durham.ac.uk>"
 
 ARG TARGETPLATFORM
+ARG OS_NAME
 ARG condaEnvFile
 ARG condaEnvName="fermipy-v1-0-1"
 
-RUN export OS_NAME=$(uname -s)
+RUN echo "Plaform: ${TARGETPLATFORM} Operating System: ${OS_NAME}"
 
-RUN echo "Plaform: ${TARGETPLATFORM} ${OS_NAME}"
+RUN false
 
 # System packages
 RUN apt-get update && apt-get install -y curl \
