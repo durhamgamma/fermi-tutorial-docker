@@ -135,9 +135,9 @@ EXPOSE 8888
 
 
 SHELL ["/bin/bash", "-c"]
-# Give bash access to Anaconda
+# Give bash access to Anaconda and install fermipy
 RUN echo "source activate $condaEnvName" >> ~/.bashrc && \
-    source ~/.bashrc
+    source ~/.bashrc && pip install fermipy
 
 ENV PATH=/miniforge3/envs/fermipy-v1-0-1/bin:$PATH
 
