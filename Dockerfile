@@ -65,7 +65,7 @@ WORKDIR /temp
 COPY $condaEnvFile .
 #Create conda fermi environment
 #RUN conda env create -f tutorial-environment.yml
-RUN conda env create -f $condaEnvFile python=3.10
+RUN conda env create -f $condaEnvFile
 
 
 SHELL ["conda", "run", "-n", "fermipy-v1-0-1", "/bin/bash", "-c"]
