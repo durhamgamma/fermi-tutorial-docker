@@ -15,10 +15,6 @@ ARG whichConda
 
 RUN echo "Building Docker image for - Plaform: ${TARGETPLATFORM} Operating System: ${os_name}"
 
-RUN echo "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(`uname`)-$(`uname -m`).sh"
-
-RUN false
-
 # System packages
 RUN apt-get update && apt-get install -y curl \
 && apt-get clean \
@@ -35,13 +31,33 @@ RUN apt-get update && apt-get install -y curl \
 #     else \
 #         whichConda="Miniforge3-MacOSX-arm64" \
 
+# Set variables based on TARGETPLATFORM
+RUN case "${TARGETPLATFORM}" in \
+      "linux/amd64") \
+        MINIFORGE_URL="https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh" \
+        ;; \
+      "linux/arm64") \
+        MINIFORGE_URL="https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-aarch64.sh" \
+        ;; \
+      "darwin/amd64") \
+        MINIFORGE_URL="https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-x86_64.sh" \
+        ;; \
+      "darwin/arm64") \
+        MINIFORGE_URL="https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-arm64.sh" \
+        ;; \
+      *) echo "Unsupported platform: ${TARGETPLATFORM}"; exit 1 ;; \
+    esac && \
+    curl -L -O "${MINIFORGE_URL}" && \
+    bash $(basename "${MINIFORGE_URL}")
+
+RUN rm $(basename "${MINIFORGE_URL}")
 
 #RUN curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh"
 #RUN bash Miniforge3-Linux-x86_64.sh -p /miniforge3 -b
-RUN url -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
-RUN bash Miniforge3-$(uname)-$(uname -m).sh -p /miniforge3 -b
+#RUN url -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+#RUN bash Miniforge3-$(uname)-$(uname -m).sh -p /miniforge3 -b
 
-RUN rm Miniforge3-Linux-x86_64.sh
+#RUN rm Miniforge3-Linux-x86_64.sh
 ENV PATH=/miniforge3/bin:${PATH}
 RUN conda update -y conda
 
