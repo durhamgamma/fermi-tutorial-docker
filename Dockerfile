@@ -16,7 +16,8 @@ ARG BUILDPLATFORM
 ARG TARGETARCH
 ARG TARGETOS
 ARG platform="${TARGETOS}-${TARGETARCH}"
-RUN echo "Building Docker image for - Plaform: ${TARGETPLATFORM} ${TARGETARCH} ${TARGETOS} ${platform} "
+ARG lockfile="predict-${platform}.lock"
+RUN echo "Building Docker image for - Plaform: ${TARGETPLATFORM} ${TARGETARCH} ${TARGETOS} ${platform} ${lockfile} "
 
 # System packages
 RUN apt-get update && apt-get install -y curl \
