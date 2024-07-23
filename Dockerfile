@@ -15,6 +15,10 @@ ARG whichConda
 
 RUN echo "Building Docker image for - Plaform: ${TARGETPLATFORM} Operating System: ${os_name}"
 
+RUN echo "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+
+RUN false
+
 # System packages
 RUN apt-get update && apt-get install -y curl \
 && apt-get clean \
