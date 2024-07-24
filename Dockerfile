@@ -44,14 +44,15 @@ RUN chmod u+x /miniforge-setup.sh && /miniforge-setup.sh "${TARGETPLATFORM}"
 
 #RUN rm Miniforge3-Linux-x86_64.sh
 ENV PATH=/miniforge3/bin:${PATH}
-RUN conda update -y conda
+#RUN conda update -y conda
 
 #Append conda-forge channel
 #RUN conda config --append channels conda-forge
 
 #RUN conda install --yes -c conda-forge mamba gosu tini ipykernel
 #RUN mamba install --yes -c conda-forge gosu tini ipykernel conda-lock
-RUN conda config --show-sources
+RUN conda config --append channels conda-forge && conda config --show channels
+
 RUN mamba create -n ${condaEnvName} -c conda-forge -c fermi fermitools numpy=1.20
 
 # Python packages from conda
