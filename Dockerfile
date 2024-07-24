@@ -53,10 +53,10 @@ ENV PATH=/miniforge3/bin:${PATH}
 #RUN mamba install --yes -c conda-forge gosu tini ipykernel conda-lock
 SHELL ["conda", "config", "--describe", "channel_priority"]
 
-RUN conda config --append channels conda-forge \
-&& conda config --append channels fermi \
-&& conda config --show channels \
-&& conda config --describe channel_priority
+# RUN conda config --append channels conda-forge \
+# && conda config --append channels fermi \
+# && conda config --show channels \
+# && conda config --describe channel_priority
 
 SHELL ["conda", "config", "--show", "channels"]
 
