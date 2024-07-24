@@ -57,7 +57,6 @@ RUN conda config --append channels conda-forge \
 && conda config --show channels \
 && conda config --describe channel_priority
 
-RUN mamba create -n test fermitools[channel=fermi, subdir=osx-arm64] numpy=1.20[channel=conda-forge]
 #RUN mamba create -n ${condaEnvName} -c conda-forge -c fermi fermitools numpy=1.20
 
 # Python packages from conda
@@ -77,9 +76,9 @@ WORKDIR /temp
 COPY ${condaEnvFile} .
 #Create conda fermi environment
 #RUN conda env create -f tutorial-environment.yml
-#RUN conda lock -p linux-64 -p linux-aarch64 -p osx-64 -p osx-arm64 -f ${condaEnvFile} --filename-template ${lockfile}
-#COPY predict-${TARGETPLATFORM}.lock .
-#RUN mamba env create --name ${condaEnvName} --file ${lockfile} && conda clean -afy
+RUN conda lock -p linux-64 -p osx-64 -p osx-arm64 -f ${condaEnvFile} --filename-template ${lockfile}
+COPY predict-${TARGETPLATFORM}.lock .
+RUN mamba env create --name ${condaEnvName} --file ${lockfile} && conda clean -afy
 
 SHELL ["conda", "run", "-n", "fermipy-v1-0-1", "/bin/bash", "-c"]
 # RUN conda install -n $condaEnvName fermipy \
