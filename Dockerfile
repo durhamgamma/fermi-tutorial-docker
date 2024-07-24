@@ -51,9 +51,12 @@ ENV PATH=/miniforge3/bin:${PATH}
 
 #RUN conda install --yes -c conda-forge mamba gosu tini ipykernel
 #RUN mamba install --yes -c conda-forge gosu tini ipykernel conda-lock
-RUN conda config --append channels conda-forge && conda config --show channels
+RUN conda config --append channels conda-forge \
+&& conda config --append channels fermi \
+&& conda config --show channels
 
-RUN mamba create -n ${condaEnvName} -c conda-forge -c fermi fermitools numpy=1.20
+RUN mamba create -n test fermitools numpy=1.20
+#RUN mamba create -n ${condaEnvName} -c conda-forge -c fermi fermitools numpy=1.20
 
 # Python packages from conda
 # RUN conda install -y \
