@@ -51,7 +51,7 @@ RUN conda update -y conda
 
 #RUN conda install --yes -c conda-forge mamba gosu tini ipykernel
 #RUN mamba install --yes -c conda-forge gosu tini ipykernel conda-lock
-RUN conda config --show channels
+RUN conda config --show-sources
 RUN mamba create -n ${condaEnvName} -c conda-forge -c fermi fermitools numpy=1.20
 
 # Python packages from conda
