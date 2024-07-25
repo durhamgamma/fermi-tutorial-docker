@@ -24,7 +24,8 @@ This will create a new docker image called ```fermi-tutorial:v1-0-0``` that shou
 
 ## Dependencies
 
-In order to build the docker container you need to have [Docker](https://www.docker.com) installed.
+> [!IMPORTANT]
+> In order to build the docker container you need to have [Docker](https://www.docker.com) installed.
 
 ## Running the docker container for the tutorials in the [fermi-tutorial](https://github.com/durhamgamma/fermi-tutorial) repo
 
