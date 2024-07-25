@@ -13,11 +13,8 @@ Navigate into the newly created ```fermi-tutorial-docker``` directory and build 
 
 > [!NOTE]
 > If you are building on an Apple Mac with the new ARM64 silicon achitecture (i.e. M1, M2 and M3 etc.) then you need to make sure Rosetta 2 is enabled on your machine for Intel x86_64 emulation. The reason you have to do this is because there is no suitable fermitools installation for a Linux ARM64 architecture, this would require building from source, which is a lengthy and more complicated process. Anyhow, to check if Rosetta 2 is running on your computer run the following command in the terminal:
-
 > ```if /usr/bin/pgrep -q oahd; then echo 'rosetta installed'; fi```
-
 > Usually you are prompted to install Rosetta 2 when you try to open an application that requires it. You may need to follow Apple's advice if you have any issues. In addition, you also need to ensure that the "Use Rosetta for x86_64/amd64 emulation on Apple Silicon" option is enabled in the Docker Desktop application under Settings -> General. Lastly, when building the image you must provide the ```--platform linux/amd64``` option e.g.:
-
 > ```docker build --platform linux/amd64 --build-arg condaEnvFile=./tutorial-environment.yml --build-arg condaEnvName="fermipy-v1-0-1" -t fermi-tutorial:v1-0-0 .```
 
 This will create a new docker image called ```fermi-tutorial:v1-0-0``` that should now appear in your list of images in the Docker Desktop application, or when you run ```docker images``` from the command line.
