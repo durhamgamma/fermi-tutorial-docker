@@ -15,7 +15,7 @@ If you are building on an Apple Mac with the new ARM64 silicon achitecture (i.e.
 
 ```if /usr/bin/pgrep -q oahd; then echo 'rosetta installed'; fi```
 
-Usually you are prompted to install Rosetta 2 when you try to open an application that requires it. You may need to follow Apple's advice if you have any issues. In addition, you also need to ensure that the "Use Rosetta for x86_64/amd64 emulation on Apple Silicon" option is enabled in Docker Desktop application under Settings -> General. Lastly, when building the image you must provide the --platform option e.g.:
+Usually you are prompted to install Rosetta 2 when you try to open an application that requires it. You may need to follow Apple's advice if you have any issues. In addition, you also need to ensure that the "Use Rosetta for x86_64/amd64 emulation on Apple Silicon" option is enabled in the Docker Desktop application under Settings -> General. Lastly, when building the image you must provide the --platform option e.g.:
 
 ```docker build --platform linux/amd64 --build-arg condaEnvFile=./tutorial-environment.yml --build-arg condaEnvName="fermipy-v1-0-1" -t fermi-tutorial:v1-0-0 .```
 
