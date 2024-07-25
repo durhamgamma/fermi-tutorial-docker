@@ -4,7 +4,7 @@
 # NOTE: When building this docker image make sure you increase your RAM and Swap
 # file size in your docker preferences otherwise you'll get lots of build failures
 
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 LABEL org.opencontainers.image.authors="Cameron Rulten <cameron.b.rulten@durham.ac.uk>"
 
 
@@ -77,19 +77,19 @@ WORKDIR /home/matplotlib
 RUN echo "backend      : Agg" >> /home/matplotlib/matplotlibrc
 
 
-#Copy the locally updated 4FGL-DR2 catalog into the fermipy catalog directory
-#This local copy of the catalog changes the incorrectly named PLSuperExpCutoff with PLSuperExpCutoff2
-WORKDIR /miniconda3/envs/$condaEnvName/lib/python3.9/site-packages/fermipy/data/catalogs
-COPY gll_psc_v27.fit /miniconda3/envs/$condaEnvName/lib/python3.9/site-packages/fermipy/data/catalogs
+# #Copy the locally updated 4FGL-DR2 catalog into the fermipy catalog directory
+# #This local copy of the catalog changes the incorrectly named PLSuperExpCutoff with PLSuperExpCutoff2
+# WORKDIR /miniconda3/envs/$condaEnvName/lib/python3.9/site-packages/fermipy/data/catalogs
+# COPY gll_psc_v27.fit /miniconda3/envs/$condaEnvName/lib/python3.9/site-packages/fermipy/data/catalogs
 
-#Copy the locally updated fermipy files into the container fermipy installation
-#The updated catalog file reflects the use of the gll_psc_v27.fit catalog files
-#when using the "4FGL" keyword in your analysis config.pyaml file.
-#The updated ltcube.py file reflects the TSTART and TSTOP fits file changes causing key error
-#The updated lightcurve.py file now checks for a fit where failure to check can cause the "fit_success" key error
-WORKDIR /miniconda3/envs/$condaEnvName/lib/python3.9/site-packages/fermipy
-RUN rm -f lightcurve.py
-COPY catalog.py ltcube.py lightcurve.py .
+# #Copy the locally updated fermipy files into the container fermipy installation
+# #The updated catalog file reflects the use of the gll_psc_v27.fit catalog files
+# #when using the "4FGL" keyword in your analysis config.pyaml file.
+# #The updated ltcube.py file reflects the TSTART and TSTOP fits file changes causing key error
+# #The updated lightcurve.py file now checks for a fit where failure to check can cause the "fit_success" key error
+# WORKDIR /miniconda3/envs/$condaEnvName/lib/python3.9/site-packages/fermipy
+# RUN rm -f lightcurve.py
+# COPY catalog.py ltcube.py lightcurve.py .
 
 
 WORKDIR /workdir
