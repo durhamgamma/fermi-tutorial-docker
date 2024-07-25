@@ -99,10 +99,10 @@ ENV FERMIPY=/miniconda3/envs/$condaEnvName/lib/python3.9/site-packages/fermipy/
 
 
 WORKDIR /home
-COPY fermi-tutorial.tar.gz .
-RUN tar -xvzf fermi-tutorial.tar.gz -C . && rm fermi-tutorial.tar.gz
+#COPY fermi-tutorial.tar.gz .
+#RUN tar -xvzf fermi-tutorial.tar.gz -C . && rm fermi-tutorial.tar.gz
 RUN env | grep -w "PFILES" > env-logon.list
-VOLUME /home/fermi-tutorial
+#VOLUME /home/fermi-tutorial
 
 
 WORKDIR /temp
