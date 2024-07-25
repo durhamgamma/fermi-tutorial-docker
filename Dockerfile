@@ -49,6 +49,7 @@ RUN mamba env create -f $condaEnvFile
 
 
 SHELL ["conda", "run", "-n", "fermipy-v1-0-1", "/bin/bash", "-c"]
+RUN pip install fermipy
 # RUN conda install -n $condaEnvName fermipy \
 # && python -m ipykernel install --user --name=$condaEnvName
 RUN python -m ipykernel install --user --name=$condaEnvName
