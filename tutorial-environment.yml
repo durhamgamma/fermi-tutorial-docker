@@ -3,16 +3,16 @@ channels:
   - fermi
   - conda-forge
 dependencies:
-  - python >=3.9,<3.10
+  - python=3.9
   - pyyaml
-  - numpy >=1.16
+  - numpy=1.20
   - scipy
   - astropy
   - matplotlib
   - pandas
   - healpy
   - astropy-healpix
-  - gammapy >=0.18
+  - gammapy>=0.18
   - fermitools
   - clhep
   - ipython
