@@ -3,11 +3,11 @@ Docker package for fermi tutorial
 
 ## Installation instructions
 
-Firstly clone this repo into a new directory called "fermi-tutorial-docker" e.g.
+Firstly clone this repo into a new directory called ```fermi-tutorial-docker``` e.g.
 
 ```git clone https://github.com/durhamgamma/fermi-tutorial-docker.git fermi-tutorial-docker```
 
-Navigate into the newly created "fermi-tutorial-docker" directory and build the docker container e.g.:
+Navigate into the newly created ```fermi-tutorial-docker``` directory and build the docker container e.g.:
 
 ```docker build --build-arg condaEnvFile=./tutorial-environment.yml --build-arg condaEnvName="fermipy-v1-0-1" -t fermi-tutorial:v1-0-0 .```
 
