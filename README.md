@@ -19,7 +19,7 @@ Usually you are prompted to install Rosetta 2 when you try to open an applicatio
 
 ```docker build --platform linux/amd64 --build-arg condaEnvFile=./tutorial-environment.yml --build-arg condaEnvName="fermipy-v1-0-1" -t fermi-tutorial:v1-0-0 .```
 
-This will create a new docker image called fermi-tutorial:v1-0-0 that should now appear in your list of images in the Docker Desktop application, or when you run docker images from the command line.
+This will create a new docker image called fermi-tutorial:v1-0-0 that should now appear in your list of images in the Docker Desktop application, or when you run ```docker images``` from the command line.
 
 ## Dependencies
 
