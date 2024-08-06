@@ -20,13 +20,14 @@ apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 # && rm -rf /var/lib/apt/lists/*
 
 # Install miniconda to /miniconda
-RUN curl -LO https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
-    chmod +x Miniconda3-latest-Linux-x86_64.sh && \
-    bash Miniconda3-latest-Linux-x86_64.sh -p /miniconda3 -b && \
-    rm Miniconda3-latest-Linux-x86_64.sh
-# RUN curl -LO http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-# RUN bash Miniconda3-latest-Linux-x86_64.sh -p /miniconda3 -b
-# RUN rm Miniconda3-latest-Linux-x86_64.sh
+# RUN curl -LO https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+#     chmod +x Miniconda3-latest-Linux-x86_64.sh && \
+#     bash Miniconda3-latest-Linux-x86_64.sh -p /miniconda3 -b && \
+#     rm Miniconda3-latest-Linux-x86_64.sh
+
+RUN curl -LO https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN bash Miniconda3-latest-Linux-x86_64.sh -p /miniconda3 -b
+RUN rm Miniconda3-latest-Linux-x86_64.sh
 ENV PATH=/miniconda3/bin:${PATH}
 RUN conda update -y conda
 
