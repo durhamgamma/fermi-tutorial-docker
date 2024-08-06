@@ -12,14 +12,21 @@ ARG condaEnvFile
 ARG condaEnvName="fermipy-v1-0-1"
 
 # System packages
-RUN apt-get update && apt-get install -y curl \
-&& apt-get clean \
-&& rm -rf /var/lib/apt/lists/*
+RUN apt-get -y update --no-install-recommends && \
+apt-get -y install --no-install-recommends curl ca-certificates && \
+apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+# RUN apt-get update && apt-get install -y curl \
+# && apt-get clean \
+# && rm -rf /var/lib/apt/lists/*
 
 # Install miniconda to /miniconda
-RUN curl -LO http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-RUN bash Miniconda3-latest-Linux-x86_64.sh -p /miniconda3 -b
-RUN rm Miniconda3-latest-Linux-x86_64.sh
+RUN curl -LO https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+    chmod +x Miniconda3-latest-Linux-x86_64.sh && \
+    bash Miniconda3-latest-Linux-x86_64.sh -p /miniconda3 -b && \
+    rm Miniconda3-latest-Linux-x86_64.sh
+# RUN curl -LO http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+# RUN bash Miniconda3-latest-Linux-x86_64.sh -p /miniconda3 -b
+# RUN rm Miniconda3-latest-Linux-x86_64.sh
 ENV PATH=/miniconda3/bin:${PATH}
 RUN conda update -y conda
 
