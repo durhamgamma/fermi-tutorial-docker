@@ -34,7 +34,7 @@ To run the newly created ```fermi-tutorial:v1-0-0``` docker image starting in th
 ```docker run -it --platform linux/amd64 --rm -v $PWD:/workdir -w /workdir -v $PWD/data:/data --entrypoint /bin/bash fermi-tutorial:v1-0-0```
 
 > [!Note]
-> Your system may require you to include a -c flag before the image name, and if you're running on an M-series Apple Mac computer you must provide the ```--platform linux/amd64``` option.
+> Your system may require you to include a -c flag before the image name, and if you're running on an M-series Apple Mac computer you must provide the ```--platform linux/amd64``` option. If you're running on a system with an Intel architecture then you don't need the ```--platform``` option.
 
 To run the newly created docker image starting in a Jupyter notebook, simply open a new terminal window and run:
 
