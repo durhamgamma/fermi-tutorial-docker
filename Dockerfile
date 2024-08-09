@@ -75,7 +75,8 @@ WORKDIR /workdir
 ENV FERMIPY=/miniconda3/envs/$condaEnvName/lib/python3.9/site-packages/fermipy/
 ENV LATEXTDIR=/miniconda3/envs/$condaEnvName/lib/python3.9/site-packages/fermipy/data/catalogs
 # Create the symbolic link to one of the catalog files in the /tutorial2_catalog
-RUN ln -s $LATEXTDIR/gll_psc_v27.fit /tutorial2_catalog/gll_psc_v27.fit
+RUN mkdir /tutorial2_catalog && \
+    ln -s $LATEXTDIR/gll_psc_v27.fit /tutorial2_catalog/gll_psc_v27.fit
 
 WORKDIR /home
 #COPY fermi-tutorial.tar.gz .
