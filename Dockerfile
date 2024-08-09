@@ -97,8 +97,11 @@ RUN echo "source activate $condaEnvName" >> ~/.bashrc && \
 
 ENV PATH=/miniconda3/envs/$condaEnvName/bin:$PATH
 
+# Use the entrypoint.sh script as the entrypoint
+ENTRYPOINT ["/temp/entrypoint.sh"]
+
 # ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "fermipy-v1-2-2", "jupyter-lab", "--notebook-dir=/workdir", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
-ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", $condaEnvName, "jupyter", "notebook", "--notebook-dir=/workdir", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
+#ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", $condaEnvName, "jupyter", "notebook", "--notebook-dir=/workdir", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
 #ENTRYPOINT ["/bin/bash","--login","-c"]
 
 
