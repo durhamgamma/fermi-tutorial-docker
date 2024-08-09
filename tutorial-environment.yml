@@ -1,4 +1,4 @@
-name: fermipy-v1-0-1
+name: fermipy-v1-2-2
 channels:
   - fermi
   - conda-forge
