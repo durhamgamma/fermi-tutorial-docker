@@ -65,6 +65,7 @@ RUN echo "backend      : Agg" >> /home/matplotlib/matplotlibrc
 
 WORKDIR /workdir
 ENV FERMIPY=/miniconda3/envs/$condaEnvName/lib/python3.9/site-packages/fermipy/
+ENV LATEXTDIR=/miniconda3/envs/$condaEnvName/lib/python3.9/site-packages/fermipy/data/catalogs
 
 WORKDIR /home
 #COPY fermi-tutorial.tar.gz .
