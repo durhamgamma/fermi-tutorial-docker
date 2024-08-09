@@ -83,7 +83,7 @@ RUN env | grep -w "PFILES" > env-logon.list
 
 
 WORKDIR /temp
-COPY ./entrypoint.sh ./start-env.py .
+COPY ./entrypoint.sh ./start-env.py ./
 RUN chmod 755 entrypoint.sh
 
 WORKDIR /workdir
