@@ -8,7 +8,7 @@ LABEL org.opencontainers.image.authors="Cameron Rulten <cameron.b.rulten@durham.
 
 #define some environment variables
 ARG condaEnvFile
-ARG condaEnvName="fermipy-v1-0-1"
+ARG condaEnvName="fermipy-v1-2-2"
 
 # Update and install some useful system packages
 RUN apt-get -y update --no-install-recommends && \
@@ -37,7 +37,7 @@ COPY $condaEnvFile .
 RUN mamba env create -f $condaEnvFile
 
 
-SHELL ["conda", "run", "-n", "fermipy-v1-0-1", "/bin/bash", "-c"]
+SHELL ["conda", "run", "-n", "fermipy-v1-2-2", "/bin/bash", "-c"]
 RUN pip install fermipy
 # RUN conda install -n $condaEnvName fermipy \
 # && python -m ipykernel install --user --name=$condaEnvName
@@ -86,10 +86,10 @@ SHELL ["/bin/bash", "-c"]
 RUN echo "source activate $condaEnvName" >> ~/.bashrc && \
     source ~/.bashrc
 
-ENV PATH=/miniconda3/envs/fermipy-v1-0-1/bin:$PATH
+ENV PATH=/miniconda3/envs/fermipy-v1-2-2/bin:$PATH
 
-# ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "fermipy-v1-0-1", "jupyter-lab", "--notebook-dir=/workdir", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
-ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "fermipy-v1-0-1", "jupyter", "notebook", "--notebook-dir=/workdir", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
+# ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "fermipy-v1-2-2", "jupyter-lab", "--notebook-dir=/workdir", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "fermipy-v1-2-2", "jupyter", "notebook", "--notebook-dir=/workdir", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
 #ENTRYPOINT ["/bin/bash","--login","-c"]
 
 
