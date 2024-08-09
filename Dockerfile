@@ -37,7 +37,7 @@ COPY $condaEnvFile .
 RUN mamba env create -f $condaEnvFile
 
 
-SHELL ["conda", "run", "-n", "$condaEnvName", "/bin/bash", "-c"]
+SHELL ["conda", "run", "-n", $condaEnvName, "/bin/bash", "-c"]
 RUN pip install fermipy
 # RUN conda install -n $condaEnvName fermipy \
 # && python -m ipykernel install --user --name=$condaEnvName
@@ -90,7 +90,7 @@ RUN echo "source activate $condaEnvName" >> ~/.bashrc && \
 ENV PATH=/miniconda3/envs/$condaEnvName/bin:$PATH
 
 # ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "fermipy-v1-2-2", "jupyter-lab", "--notebook-dir=/workdir", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
-ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "$condaEnvName", "jupyter", "notebook", "--notebook-dir=/workdir", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", $condaEnvName, "jupyter", "notebook", "--notebook-dir=/workdir", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
 #ENTRYPOINT ["/bin/bash","--login","-c"]
 
 
