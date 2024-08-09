@@ -37,7 +37,15 @@ COPY $condaEnvFile .
 RUN mamba env create -f $condaEnvFile
 
 
-SHELL ["conda", "run", "-n", $condaEnvName, "/bin/bash", "-c"]
+#You cannot use an environment variable inside a shell command like this
+#Instead we need a workaround by creating a shell script
+#SHELL ["conda", "run", "-n", $condaEnvName, "/bin/bash", "-c"]
+
+# Create a shell script that uses the environment variable
+RUN echo '#!/bin/bash\nconda run -n $condaEnvName /bin/bash -c "$@"' > /usr/local/bin/conda_shell.sh && \
+    chmod +x /usr/local/bin/conda_shell.sh
+SHELL ["/usr/local/bin/conda_shell.sh"]
+
 RUN pip install fermipy
 # RUN conda install -n $condaEnvName fermipy \
 # && python -m ipykernel install --user --name=$condaEnvName
