@@ -5,7 +5,7 @@ set -e
 source ~/.bashrc
 
 # Set the PFILES environment variable if not already set
-export PFILES=.:/root/pfiles;/miniconda3/envs/fermipy-v1-2-2/share/fermitools/syspfiles
+export PFILES=".:/root/pfiles;/miniconda3/envs/fermipy-v1-2-2/share/fermitools/syspfiles"
 
 # Activate the conda environment
 source activate $condaEnvName
