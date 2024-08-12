@@ -82,6 +82,11 @@ WORKDIR /home
 #COPY fermi-tutorial.tar.gz .
 #RUN tar -xvzf fermi-tutorial.tar.gz -C . && rm fermi-tutorial.tar.gz
 RUN env | grep -w "PFILES" > env-logon.list
+
+# Copy all .par files from the system directory to /workdir
+RUN cp /miniconda3/envs/fermipy-v1-2-2/share/fermitools/syspfiles/*.par /home/pfiles
+# Optionally, update PFILES to include /workdir first
+ENV PFILES=/home/pfiles:/miniconda3/envs/fermipy-v1-2-2/share/fermitools/syspfiles
 #VOLUME /home/fermi-tutorial
 
 
