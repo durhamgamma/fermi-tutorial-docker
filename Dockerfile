@@ -66,8 +66,6 @@ ENV CALDB=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb
 ENV CALDBROOT=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb
 ENV CALDBALIAS=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb/software/tools/alias_config.fits
 ENV CALDBCONFIG=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb/software/tools/caldb.config
-ENV PFILES=/root/pfiles
-RUN mkdir -p /root/pfiles
 
 
 WORKDIR /home/matplotlib
