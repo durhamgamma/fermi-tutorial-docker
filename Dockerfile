@@ -96,6 +96,7 @@ RUN chmod 755 entrypoint.sh
 
 WORKDIR /workdir
 EXPOSE 8888
+RUN chmod -R 777 /workdir
 
 
 SHELL ["/bin/bash", "-c"]
