@@ -1,12 +1,14 @@
 #!/bin/bash
 set -e
 
-# Activate the conda environment
-source activate $condaEnvName
+# Source the bashrc to ensure all environment variables are loaded
+source ~/.bashrc
 
-# Optionally set the PFILES variable directly here as well
+# Set the PFILES environment variable if not already set
 export PFILES=.:/root/pfiles;/miniconda3/envs/fermipy-v1-2-2/share/fermitools/syspfiles
 
+# Activate the conda environment
+source activate $condaEnvName
 
 # If no arguments are passed, default to starting a Jupyter notebook
 if [ $# -eq 0 ]; then
