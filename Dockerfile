@@ -84,7 +84,7 @@ WORKDIR /home
 RUN env | grep -w "PFILES" > env-logon.list
 
 # Copy all .par files from the system directory to /workdir
-RUN cp /miniconda3/envs/fermipy-v1-2-2/share/fermitools/syspfiles/*.par /home/pfiles
+RUN mkdir pfiles && cp /miniconda3/envs/fermipy-v1-2-2/share/fermitools/syspfiles/*.par /home/pfiles
 # Optionally, update PFILES to include /workdir first
 ENV PFILES=/home/pfiles:/miniconda3/envs/fermipy-v1-2-2/share/fermitools/syspfiles
 #VOLUME /home/fermi-tutorial
