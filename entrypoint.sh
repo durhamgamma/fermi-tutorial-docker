@@ -4,6 +4,10 @@ set -e
 # Activate the conda environment
 source activate $condaEnvName
 
+# Optionally set the PFILES variable directly here as well
+export PFILES=.:/root/pfiles;/miniconda3/envs/fermipy-v1-2-2/share/fermitools/syspfiles
+
+
 # If no arguments are passed, default to starting a Jupyter notebook
 if [ $# -eq 0 ]; then
     exec jupyter notebook --notebook-dir=/workdir --ip='0.0.0.0' --port=8888 --no-browser --allow-root
@@ -12,7 +16,6 @@ else
     exec "$@"
 fi
 
-python /temp/start-env.py
 
 # #!/bin/bash --login
 # set -e #o pipefail
