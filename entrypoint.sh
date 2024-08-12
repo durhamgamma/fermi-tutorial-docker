@@ -12,7 +12,7 @@ else
     exec "$@"
 fi
 
-
+python /temp/start-env.py
 
 # #!/bin/bash --login
 # set -e #o pipefail
