@@ -81,7 +81,7 @@ RUN mkdir /tutorial2_catalog && \
 WORKDIR /home
 #COPY fermi-tutorial.tar.gz .
 #RUN tar -xvzf fermi-tutorial.tar.gz -C . && rm fermi-tutorial.tar.gz
-RUN env | grep -w "PFILES" > env-logon.list
+RUN env | grep -w "PFILES" > env-logon.list && env | grep -w "PFILES"
 #VOLUME /home/fermi-tutorial
 
 
