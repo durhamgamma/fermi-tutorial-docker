@@ -22,4 +22,4 @@ dependencies:
   - ipykernel
   - pip
   - pip:
-      - fermipy
+      - fermipy==1.2.0
