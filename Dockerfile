@@ -39,36 +39,14 @@ RUN mamba env create -f $condaEnvFile
 #Set up Fermitools paths
 WORKDIR /workdir
 
-#ENV FERMI_DIFFUSE_DIR=/home/externals/diffuseModels/v5r0
-ENV FERMI_DIFFUSE_DIR=/miniconda3/envs/$condaEnvName/share/fermitools/refdata/fermi/galdiffuse
-#ENV SLAC_ST_BUILD=true
-#ENV INST_DIR=/miniconda/share/fermitools
-ENV FERMI_DIR=/miniconda3/envs/$condaEnvName/share/fermitools/
-#ENV GLAST_EXT=/home/externals
-ENV MATPLOTLIBRC=/home/matplotlib
-#Set environmnet variables which don't appear to get set
-ENV CALDB=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb
-ENV CALDBROOT=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb
-ENV CALDBALIAS=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb/software/tools/alias_config.fits
-ENV CALDBCONFIG=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb/software/tools/caldb.config
+# Capture the environment variables after activating the environment
+RUN /bin/bash -c "source activate $condaEnvName && env" > /temp/env_vars.sh
 
-RUN env | xargs -I{} echo {}
-#You cannot use an environment variable inside a shell command like this
-#Instead we need a workaround by creating a shell script
-#SHELL ["conda", "run", "-n", $condaEnvName, "/bin/bash", "-c"]
+# Add these environment variables to ~/.bashrc so they are loaded in every session
+RUN echo "source /temp/env_vars.sh" >> ~/.bashrc
 
-# Create a shell script that uses the environment variable
-RUN echo '#!/bin/bash\nsource ~/.bashrc\nconda run -n $condaEnvName /bin/bash -c "$@"' > /usr/local/bin/conda_shell.sh && \
-    chmod +x /usr/local/bin/conda_shell.sh
-SHELL ["/usr/local/bin/conda_shell.sh"]
-
-# RUN pip install fermipy==1.2.0
-# # RUN conda install -n $condaEnvName fermipy \
-# # && python -m ipykernel install --user --name=$condaEnvName
-# RUN python -m ipykernel install --user --name=$condaEnvName
-
-# #Set up paths
-# WORKDIR /workdir
+# Make sure ~/.bashrc is sourced in any shell session
+RUN echo "source ~/.bashrc" >> /etc/bash.bashrc
 
 # #ENV FERMI_DIFFUSE_DIR=/home/externals/diffuseModels/v5r0
 # ENV FERMI_DIFFUSE_DIR=/miniconda3/envs/$condaEnvName/share/fermitools/refdata/fermi/galdiffuse
@@ -83,7 +61,39 @@ SHELL ["/usr/local/bin/conda_shell.sh"]
 # ENV CALDBALIAS=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb/software/tools/alias_config.fits
 # ENV CALDBCONFIG=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb/software/tools/caldb.config
 
+# RUN env | xargs -I{} echo {}
+# #You cannot use an environment variable inside a shell command like this
+# #Instead we need a workaround by creating a shell script
+# #SHELL ["conda", "run", "-n", $condaEnvName, "/bin/bash", "-c"]
 
+# # Create a shell script that uses the environment variable
+# RUN echo '#!/bin/bash\nsource ~/.bashrc\nconda run -n $condaEnvName /bin/bash -c "$@"' > /usr/local/bin/conda_shell.sh && \
+#     chmod +x /usr/local/bin/conda_shell.sh
+# SHELL ["/usr/local/bin/conda_shell.sh"]
+
+# # RUN pip install fermipy==1.2.0
+# # # RUN conda install -n $condaEnvName fermipy \
+# # # && python -m ipykernel install --user --name=$condaEnvName
+# # RUN python -m ipykernel install --user --name=$condaEnvName
+
+# # #Set up paths
+# # WORKDIR /workdir
+
+# # #ENV FERMI_DIFFUSE_DIR=/home/externals/diffuseModels/v5r0
+# # ENV FERMI_DIFFUSE_DIR=/miniconda3/envs/$condaEnvName/share/fermitools/refdata/fermi/galdiffuse
+# # #ENV SLAC_ST_BUILD=true
+# # #ENV INST_DIR=/miniconda/share/fermitools
+# # ENV FERMI_DIR=/miniconda3/envs/$condaEnvName/share/fermitools/
+# # #ENV GLAST_EXT=/home/externals
+# # ENV MATPLOTLIBRC=/home/matplotlib
+# # #Set environmnet variables which don't appear to get set
+# # ENV CALDB=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb
+# # ENV CALDBROOT=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb
+# # ENV CALDBALIAS=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb/software/tools/alias_config.fits
+# # ENV CALDBCONFIG=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb/software/tools/caldb.config
+
+
+# Set up the environment for matplotlib
 WORKDIR /home/matplotlib
 RUN echo "backend      : Agg" >> /home/matplotlib/matplotlibrc
 
@@ -106,28 +116,37 @@ RUN env | grep -w "PFILES" > env-logon.list
 #VOLUME /home/fermi-tutorial
 
 
+# WORKDIR /temp
+# COPY ./entrypoint.sh ./start-env.py ./
+# RUN chmod 755 entrypoint.sh
+
+# WORKDIR /workdir
+# EXPOSE 8888
+# RUN chmod -R 777 /workdir
+
+
+# SHELL ["/bin/bash", "-c"]
+# # Give bash access to Anaconda
+# RUN echo "source activate $condaEnvName" >> ~/.bashrc && \
+#     source ~/.bashrc
+
+# ENV PATH=/miniconda3/envs/$condaEnvName/bin:$PATH
+
+# # Use the entrypoint.sh script as the entrypoint
+# ENTRYPOINT ["/temp/entrypoint.sh"]
+
+# # ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "fermipy-v1-2-2", "jupyter-lab", "--notebook-dir=/workdir", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
+# #ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", $condaEnvName, "jupyter", "notebook", "--notebook-dir=/workdir", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
+# #ENTRYPOINT ["/bin/bash","--login","-c"]
+
+# Create the entrypoint script
 WORKDIR /temp
-COPY ./entrypoint.sh ./start-env.py ./
+COPY ./entrypoint.sh ./
 RUN chmod 755 entrypoint.sh
-
-WORKDIR /workdir
-EXPOSE 8888
-RUN chmod -R 777 /workdir
-
-
-SHELL ["/bin/bash", "-c"]
-# Give bash access to Anaconda
-RUN echo "source activate $condaEnvName" >> ~/.bashrc && \
-    source ~/.bashrc
-
-ENV PATH=/miniconda3/envs/$condaEnvName/bin:$PATH
 
 # Use the entrypoint.sh script as the entrypoint
 ENTRYPOINT ["/temp/entrypoint.sh"]
 
-# ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "fermipy-v1-2-2", "jupyter-lab", "--notebook-dir=/workdir", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
-#ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", $condaEnvName, "jupyter", "notebook", "--notebook-dir=/workdir", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
-#ENTRYPOINT ["/bin/bash","--login","-c"]
 
 
 
