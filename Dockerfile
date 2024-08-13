@@ -44,11 +44,11 @@ RUN echo "source /miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate $condaEnvName" >> ~/.bashrc && \
     echo "source ~/.bashrc" >> /etc/bash.bashrc
 
-# Capture the environment variables after activating the environment
+# Capture the environment variables after activating the environment (only for Jupyter)
 RUN /bin/bash -c "source /miniconda3/etc/profile.d/conda.sh && conda activate $condaEnvName && env" > /temp/env_vars.sh
 
 # Apply the environment variables in all new shell sessions
-RUN echo "source /temp/env_vars.sh" >> ~/.bashrc
+#RUN echo "source /temp/env_vars.sh" >> ~/.bashrc
 
 # # Capture the environment variables after activating the environment
 # RUN /bin/bash -c "source activate $condaEnvName && env" > /temp/env_vars.sh
@@ -131,9 +131,9 @@ RUN mkdir /tutorial2_catalog && \
 # COPY ./entrypoint.sh ./start-env.py ./
 # RUN chmod 755 entrypoint.sh
 
-# WORKDIR /workdir
-# EXPOSE 8888
-# RUN chmod -R 777 /workdir
+WORKDIR /workdir
+EXPOSE 8888
+RUN chmod -R 777 /workdir
 
 
 # SHELL ["/bin/bash", "-c"]
