@@ -5,7 +5,7 @@ channels:
 dependencies:
   - python=3.9
   - pyyaml
-  - numpy=1.20
+  - numpy
   - scipy
   - astropy
   - matplotlib
@@ -19,3 +19,5 @@ dependencies:
   - jupyter
   - jupyterlab
   - libpng
+  - fermipy=1.2
+  - ipykernel
