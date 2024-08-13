@@ -13,7 +13,7 @@ else
     # Otherwise, assume it's being launched for Jupyter and source env variables
     source ~/.bashrc
     conda activate fermipy-v1-2-2
-    source /temp/env_vars.sh
+    #source /temp/env_vars.sh
 
     # If no arguments are passed, default to starting a Jupyter notebook
     if [ $# -eq 0 ]; then

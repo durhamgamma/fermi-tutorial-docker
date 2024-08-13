@@ -44,17 +44,12 @@ RUN echo "source /miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate $condaEnvName" >> ~/.bashrc && \
     echo "source ~/.bashrc" >> /etc/bash.bashrc
 
-# Capture the environment variables after activating the
-# environment (only for Jupyter), filtering out problematic ones
-RUN /bin/bash -c "source /miniconda3/etc/profile.d/conda.sh && \
-    conda activate $condaEnvName && \
-    env | grep -v 'file:///etc/xml/catalog' > /temp/env_vars.sh"
 
 # Capture the environment variables after activating the environment (only for Jupyter)
-#RUN /bin/bash -c "source /miniconda3/etc/profile.d/conda.sh && conda activate $condaEnvName && env" > /temp/env_vars.sh
+RUN /bin/bash -c "source /miniconda3/etc/profile.d/conda.sh && conda activate $condaEnvName && env" > /temp/env_vars.sh
 
 # Apply the environment variables in all new shell sessions
-#RUN echo "source /temp/env_vars.sh" >> ~/.bashrc
+RUN echo "source /temp/env_vars.sh" >> ~/.bashrc
 
 # # Capture the environment variables after activating the environment
 # RUN /bin/bash -c "source activate $condaEnvName && env" > /temp/env_vars.sh
@@ -142,10 +137,10 @@ EXPOSE 8888
 RUN chmod -R 777 /workdir
 
 
-# SHELL ["/bin/bash", "-c"]
-# # Give bash access to Anaconda
-# RUN echo "source activate $condaEnvName" >> ~/.bashrc && \
-#     source ~/.bashrc
+SHELL ["/bin/bash", "-c"]
+# Give bash access to Anaconda
+RUN echo "source activate $condaEnvName" >> ~/.bashrc && \
+    source ~/.bashrc
 
 # ENV PATH=/miniconda3/envs/$condaEnvName/bin:$PATH
 
