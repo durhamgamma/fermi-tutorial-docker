@@ -9,6 +9,7 @@ source ~/.bashrc
 
 # Activate the conda environment
 #source activate $condaEnvName
+source activate fermipy-v1-2-2
 
 # If no arguments are passed, default to starting a Jupyter notebook
 if [ $# -eq 0 ]; then
