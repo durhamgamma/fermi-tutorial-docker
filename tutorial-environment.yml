@@ -8,12 +8,12 @@ dependencies:
   - numpy=1.20
   - scipy
   - astropy
-  - matplotlib<3.9
+  - matplotlib
   - pandas
   - healpy
   - astropy-healpix
   - gammapy>=0.18
-  - fermitools
+  - fermitools=2.2.0
   - clhep
   - ipython
   - jupyter
