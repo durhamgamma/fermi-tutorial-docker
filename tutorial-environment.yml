@@ -8,7 +8,7 @@ dependencies:
   - numpy
   - scipy
   - astropy
-  - matplotlib
+  - matplotlib<3.9
   - pandas
   - healpy
   - astropy-healpix
@@ -19,5 +19,5 @@ dependencies:
   - jupyter
   - jupyterlab
   - libpng
-  - fermipy
+  - fermipy="v1.2"
   - ipykernel
