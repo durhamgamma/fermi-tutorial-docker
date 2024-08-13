@@ -104,10 +104,10 @@ ENV LATEXTDIR=/miniconda3/envs/$condaEnvName/lib/python3.9/site-packages/fermipy
 RUN mkdir /tutorial2_catalog && \
     ln -s $LATEXTDIR/gll_psc_v27.fit /tutorial2_catalog/gll_psc_v27.fit
 
-WORKDIR /home
-#COPY fermi-tutorial.tar.gz .
-#RUN tar -xvzf fermi-tutorial.tar.gz -C . && rm fermi-tutorial.tar.gz
-RUN env | grep -w "PFILES" > env-logon.list
+# WORKDIR /home
+# #COPY fermi-tutorial.tar.gz .
+# #RUN tar -xvzf fermi-tutorial.tar.gz -C . && rm fermi-tutorial.tar.gz
+# RUN env | grep -w "PFILES" > env-logon.list
 
 # Copy all .par files from the system directory to /workdir
 #RUN cp /miniconda3/envs/fermipy-v1-2-2/share/fermitools/syspfiles/*.par /root/pfiles
