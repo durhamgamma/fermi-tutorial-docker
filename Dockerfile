@@ -137,10 +137,10 @@ EXPOSE 8888
 RUN chmod -R 777 /workdir
 
 
-SHELL ["/bin/bash", "-c"]
-# Give bash access to Anaconda
-RUN echo "source activate $condaEnvName" >> ~/.bashrc && \
-    source ~/.bashrc
+# SHELL ["/bin/bash", "-c"]
+# # Give bash access to Anaconda
+# RUN echo "source activate $condaEnvName" >> ~/.bashrc && \
+#     source ~/.bashrc
 
 # ENV PATH=/miniconda3/envs/$condaEnvName/bin:$PATH
 
