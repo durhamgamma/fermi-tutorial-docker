@@ -36,22 +36,7 @@ COPY $condaEnvFile .
 #RUN conda env create -f tutorial-environment.yml
 RUN mamba env create -f $condaEnvFile
 
-
-#You cannot use an environment variable inside a shell command like this
-#Instead we need a workaround by creating a shell script
-#SHELL ["conda", "run", "-n", $condaEnvName, "/bin/bash", "-c"]
-
-# Create a shell script that uses the environment variable
-RUN echo '#!/bin/bash\nconda run -n $condaEnvName /bin/bash -c "$@"' > /usr/local/bin/conda_shell.sh && \
-    chmod +x /usr/local/bin/conda_shell.sh
-SHELL ["/usr/local/bin/conda_shell.sh"]
-
-RUN pip install fermipy
-# RUN conda install -n $condaEnvName fermipy \
-# && python -m ipykernel install --user --name=$condaEnvName
-RUN python -m ipykernel install --user --name=$condaEnvName
-
-#Set up paths
+#Set up Fermitools paths
 WORKDIR /workdir
 
 #ENV FERMI_DIFFUSE_DIR=/home/externals/diffuseModels/v5r0
@@ -66,6 +51,37 @@ ENV CALDB=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb
 ENV CALDBROOT=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb
 ENV CALDBALIAS=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb/software/tools/alias_config.fits
 ENV CALDBCONFIG=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb/software/tools/caldb.config
+
+
+#You cannot use an environment variable inside a shell command like this
+#Instead we need a workaround by creating a shell script
+#SHELL ["conda", "run", "-n", $condaEnvName, "/bin/bash", "-c"]
+
+# Create a shell script that uses the environment variable
+RUN echo '#!/bin/bash\nsource ~/.bashrc\nconda run -n $condaEnvName /bin/bash -c "$@"' > /usr/local/bin/conda_shell.sh && \
+    chmod +x /usr/local/bin/conda_shell.sh
+SHELL ["/usr/local/bin/conda_shell.sh"]
+
+RUN pip install fermipy
+# RUN conda install -n $condaEnvName fermipy \
+# && python -m ipykernel install --user --name=$condaEnvName
+RUN python -m ipykernel install --user --name=$condaEnvName
+
+# #Set up paths
+# WORKDIR /workdir
+
+# #ENV FERMI_DIFFUSE_DIR=/home/externals/diffuseModels/v5r0
+# ENV FERMI_DIFFUSE_DIR=/miniconda3/envs/$condaEnvName/share/fermitools/refdata/fermi/galdiffuse
+# #ENV SLAC_ST_BUILD=true
+# #ENV INST_DIR=/miniconda/share/fermitools
+# ENV FERMI_DIR=/miniconda3/envs/$condaEnvName/share/fermitools/
+# #ENV GLAST_EXT=/home/externals
+# ENV MATPLOTLIBRC=/home/matplotlib
+# #Set environmnet variables which don't appear to get set
+# ENV CALDB=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb
+# ENV CALDBROOT=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb
+# ENV CALDBALIAS=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb/software/tools/alias_config.fits
+# ENV CALDBCONFIG=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb/software/tools/caldb.config
 
 
 WORKDIR /home/matplotlib
