@@ -46,7 +46,7 @@ RUN echo "source /miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
 
 
 # Capture the environment variables after activating the environment (only for Jupyter)
-RUN /bin/bash -c "source /miniconda3/etc/profile.d/conda.sh && conda activate $condaEnvName && env" > /temp/env_vars.sh
+#RUN /bin/bash -c "source /miniconda3/etc/profile.d/conda.sh && conda activate $condaEnvName && env" > /temp/env_vars.sh
 
 # Apply the environment variables in all new shell sessions
 #RUN echo "source /temp/env_vars.sh" >> ~/.bashrc
