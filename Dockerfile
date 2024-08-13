@@ -62,7 +62,7 @@ RUN echo '#!/bin/bash\nsource ~/.bashrc\nconda run -n $condaEnvName /bin/bash -c
     chmod +x /usr/local/bin/conda_shell.sh
 SHELL ["/usr/local/bin/conda_shell.sh"]
 
-RUN pip install fermipy
+RUN pip install fermipy=1.2.0
 # RUN conda install -n $condaEnvName fermipy \
 # && python -m ipykernel install --user --name=$condaEnvName
 RUN python -m ipykernel install --user --name=$condaEnvName
