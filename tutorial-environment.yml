@@ -19,5 +19,5 @@ dependencies:
   - jupyter
   - jupyterlab
   - libpng
-  - fermipy=1.2
+  - fermipy
   - ipykernel
