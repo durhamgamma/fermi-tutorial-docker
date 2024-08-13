@@ -52,7 +52,7 @@ ENV CALDBROOT=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb
 ENV CALDBALIAS=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb/software/tools/alias_config.fits
 ENV CALDBCONFIG=/miniconda3/envs/$condaEnvName/share/fermitools/data/caldb/software/tools/caldb.config
 
-
+RUN env | xargs -I{} echo {}
 #You cannot use an environment variable inside a shell command like this
 #Instead we need a workaround by creating a shell script
 #SHELL ["conda", "run", "-n", $condaEnvName, "/bin/bash", "-c"]
