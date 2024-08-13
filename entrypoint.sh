@@ -11,7 +11,7 @@ if [ "$1" == "/bin/bash" ]; then
     exec "$@"
 else
     # Otherwise, assume it's being launched for Jupyter and source env variables
-    #source ~/.bashrc
+    source ~/.bashrc
     conda activate fermipy-v1-2-2
     source /temp/env_vars.sh
 
