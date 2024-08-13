@@ -39,14 +39,25 @@ RUN mamba env create -f $condaEnvFile
 #Set up Fermitools paths
 WORKDIR /workdir
 
-# Capture the environment variables after activating the environment
-RUN /bin/bash -c "source activate $condaEnvName && env" > /temp/env_vars.sh
+# Ensure that Conda is sourced and activate the environment in any new shell session
+RUN echo "source /miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
+    echo "conda activate $condaEnvName" >> ~/.bashrc && \
+    echo "source ~/.bashrc" >> /etc/bash.bashrc
 
-# Add these environment variables to ~/.bashrc so they are loaded in every session
+# Capture the environment variables after activating the environment
+RUN /bin/bash -c "source /miniconda3/etc/profile.d/conda.sh && conda activate $condaEnvName && env" > /temp/env_vars.sh
+
+# Apply the environment variables in all new shell sessions
 RUN echo "source /temp/env_vars.sh" >> ~/.bashrc
 
+# # Capture the environment variables after activating the environment
+# RUN /bin/bash -c "source activate $condaEnvName && env" > /temp/env_vars.sh
+
+# # Add these environment variables to ~/.bashrc so they are loaded in every session
+# RUN echo "source /temp/env_vars.sh" >> ~/.bashrc
+
 # Make sure ~/.bashrc is sourced in any shell session
-RUN echo "source ~/.bashrc" >> /etc/bash.bashrc
+#RUN echo "source ~/.bashrc" >> /etc/bash.bashrc
 
 # #ENV FERMI_DIFFUSE_DIR=/home/externals/diffuseModels/v5r0
 # ENV FERMI_DIFFUSE_DIR=/miniconda3/envs/$condaEnvName/share/fermitools/refdata/fermi/galdiffuse
