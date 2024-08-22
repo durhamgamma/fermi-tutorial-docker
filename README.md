@@ -9,7 +9,7 @@ Firstly clone this repo into a new directory called ```fermi-tutorial-docker``` 
 
 Navigate into the newly created ```fermi-tutorial-docker``` directory and build the docker container e.g.:
 
-```docker build --build-arg condaEnvFile=./tutorial-environment.yml --build-arg condaEnvName="fermipy-v1-0-1" -t fermi-tutorial:v1-0-0 .```
+```docker build --build-arg condaEnvFile=./tutorial-environment.yml --build-arg condaEnvName="fermipy-v1-2-2" -t fermi-tutorial:v1-2-2 .```
 
 > [!CAUTION]
 > If you are building on an Apple Mac with the new ARM64 silicon achitecture (i.e. M1, M2 and M3 etc.) then you need to make sure Rosetta 2 is enabled on your machine for Intel x86_64 emulation. The reason you have to do this is because there is no suitable fermitools installation for a Linux ARM64 architecture, this would require building from source, which is a lengthy and more complicated process. Anyhow, to check if Rosetta 2 is running on your computer run the following command in the terminal:
@@ -18,9 +18,9 @@ Navigate into the newly created ```fermi-tutorial-docker``` directory and build 
 >
 > Usually you are prompted to install Rosetta 2 when you try to open an application that requires it. You may need to follow Apple's advice if you have any issues. In addition, you also need to ensure that the "Use Rosetta for x86_64/amd64 emulation on Apple Silicon" option is enabled in the Docker Desktop application under Settings -> General. Lastly, when building the image you must provide the ```--platform linux/amd64``` option e.g.:
 >
-> ```docker build --platform linux/amd64 --build-arg condaEnvFile=./tutorial-environment.yml --build-arg condaEnvName="fermipy-v1-0-1" -t fermi-tutorial:v1-0-0 .```
+> ```docker build --platform linux/amd64 --build-arg condaEnvFile=./tutorial-environment.yml --build-arg condaEnvName="fermipy-v1-2-2" -t fermi-tutorial:v1-2-2 .```
 
-This will create a new docker image called ```fermi-tutorial:v1-0-0``` that should now appear in your list of images in the Docker Desktop application, or when you run ```docker images``` from the command line.
+This will create a new docker image called ```fermi-tutorial:v1-2-2``` that should now appear in your list of images in the Docker Desktop application, or when you run ```docker images``` from the command line.
 
 ## Dependencies
 
@@ -29,16 +29,16 @@ This will create a new docker image called ```fermi-tutorial:v1-0-0``` that shou
 
 ## Running the docker container for the tutorials in the [fermi-tutorial](https://github.com/durhamgamma/fermi-tutorial) repo
 
-To run the newly created ```fermi-tutorial:v1-0-0``` docker image starting in the shell. Simply open a new terminal window and run:
+To run the newly created ```fermi-tutorial:v1-2-2``` docker image starting in the shell. Simply open a new terminal window and run:
 
-```docker run -it --platform linux/amd64 --rm -v $PWD:/workdir -w /workdir -v $PWD/data:/data --entrypoint /bin/bash fermi-tutorial:v1-0-0```
+```docker run -it --platform linux/amd64 --rm -v $PWD:/workdir -w /workdir -v $PWD/data:/data --entrypoint /bin/bash fermi-tutorial:v1-2-2```
 
 > [!Note]
 > Your system may require you to include a -c flag before the image name, and if you're running on an M-series Apple Mac computer you must provide the ```--platform linux/amd64``` option. If you're running on a system with an Intel architecture then you don't need the ```--platform``` option.
 
 To run the newly created docker image starting in a Jupyter notebook, simply open a new terminal window and run:
 
-```docker run -it --platform linux/amd64 --rm -p 8888:8888 -v $PWD:/workdir -w /workdir -v $PWD/data:/data fermi-tutorial:v1-0-0```
+```docker run -it --platform linux/amd64 --rm -p 8888:8888 -v $PWD:/workdir -w /workdir -v $PWD/data:/data fermi-tutorial:v1-2-2```
 
 ## Notes:
 
